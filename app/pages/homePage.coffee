@@ -1,7 +1,7 @@
 React = require 'react/addons'
 _ = require 'underscore'
 
-Components = require '../../brahma_modules/brahma-components/dist/index.js'
+Components = require 'brahma-components'
 
 { div, h1, img } = React.DOM
 

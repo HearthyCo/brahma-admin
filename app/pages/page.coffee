@@ -2,7 +2,7 @@ React = require 'react/addons'
 ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
-Components = require '../../brahma_modules/brahma-components/dist/index.js'
+Components = require 'brahma-components'
 
 ListStores = Components.stores.ListStores
 EntityStores = Components.stores.EntityStores

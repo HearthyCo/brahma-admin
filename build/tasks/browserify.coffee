@@ -1,6 +1,5 @@
 module.exports = ->
   @loadNpmTasks "grunt-browserify"
-  @loadNpmTasks "grunt-coffeeify"
 
   @config "browserify",
     dev:
@@ -9,6 +8,7 @@ module.exports = ->
       options:
         browserifyOptions:
           extensions: [".coffee"]
-          fullPath: false
-        transform: ["coffeeify", "reactify", ["envify", { _: 'purge' }] ]
+          fullPaths: false
+          debug: true
+        transform: ["coffeeify", ["envify", { _: 'purge' }] ]
         exclude: ["jquery"]
