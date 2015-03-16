@@ -1,5 +1,4 @@
 module.exports = ->
-
   @loadNpmTasks "grunt-contrib-copy"
 
   @config "copy",

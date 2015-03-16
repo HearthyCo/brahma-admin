@@ -5,7 +5,7 @@ _ = require 'underscore'
 Backbone = require 'exoskeleton'
 Backbone.ajax = require 'backbone.nativeajax'
 
-Components = require '../brahma_modules/brahma-components/dist/index.js'
+Components = require 'brahma-components'
 AppDispatcher = Components.dispatcher.AppDispatcher
 PageActions = Components.actions.PageActions
 ModalActions = Components.actions.ModalActions
@@ -40,13 +40,13 @@ Router = Backbone.Router.extend
   routes:
     '': 'index'
     'login': 'login'
-#    'crudProfessional': 'crudProfessional'
+    'crudProfessional': 'crudProfessional'
     '*notFound': 'notFound'
 
   index: prepareForChange require './pages/homePage'
   login: prepareForChange require './pages/loginPage'
-  notFound: prepareForChange require './pages/homePage'
-#  crudProfessional: prepareForChange require './pages/crudProfessionalPage'
+  notFound: prepareForChange require './pages/notFoundPage'
+  crudProfessional: prepareForChange require './pages/crudProfessionalPage'
 
 # -- Link override to use router instead --
 click = (e) ->
@@ -63,6 +63,6 @@ document.addEventListener 'click', click, false
 # -- Start it up! --
 React.render React.createElement((require './pages/page'), {}), document.body
 window.router = new Router()
-Backbone.history.start pushState: false # Change to True when on real server
+Backbone.history.start pushState: true # Change to True when on real server
 
 Components.actions.UserActions.getMe()

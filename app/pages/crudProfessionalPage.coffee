@@ -11,14 +11,12 @@ crudTable = Rcf Components.components.common.crud.table
 
 professionals = [
   {id: 1, email: 'dr.riviera@gmail.mx', name: 'Dr. Riviera'}
-  {id: 2, eamil: 'dr.zivago@gmail.mx', name: 'Dr. Zivago'}
+  {id: 2, email: 'dr.zivago@gmail.mx', name: 'Dr. Zivago'}
 ]
 
 module.exports = React.createClass
 
-  displayName: 'homePage'
-  statics:
-    sectionName: 'homeSection'
+  displayName: 'crudProfessional'
 
   render: ->
     div className: 'page-crudProfessional',
