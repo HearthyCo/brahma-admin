@@ -7,7 +7,7 @@ Components = require 'brahma-components'
 
 Rcf = React.createFactory
 
-crudTable = Rcf Components.components.crud.table
+crudTable = Rcf Components.components.common.crud.table
 
 professionals = [
   {id: 1, email: 'dr.riviera@gmail.mx', name: 'Dr. Riviera'}
