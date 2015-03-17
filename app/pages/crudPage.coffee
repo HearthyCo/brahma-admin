@@ -9,15 +9,15 @@ Rcf = React.createFactory
 
 crudTable = Rcf Components.components.common.crud.table
 
-professionals = [
+items = [
   {id: 1, email: 'dr.riviera@gmail.mx', name: 'Dr. Riviera'}
   {id: 2, email: 'dr.zivago@gmail.mx', name: 'Dr. Zivago'}
 ]
 
 module.exports = React.createClass
 
-  displayName: 'crudProfessional'
+  displayName: 'crud'
 
   render: ->
-    div className: 'page-crudProfessional',
-      crudTable id: 'professionals', items: professionals
+    div className: 'page-crud',
+      crudTable items: items, type: @props.type

@@ -40,13 +40,15 @@ Router = Backbone.Router.extend
   routes:
     '': 'index'
     'login': 'login'
-    'crudProfessional': 'crudProfessional'
+    'crud/:type': 'crud'
+    'crud/:type/:id': 'edit'
     '*notFound': 'notFound'
 
   index: prepareForChange require './pages/homePage'
   login: prepareForChange require './pages/loginPage'
+  crud: prepareForChange (require './pages/crudPage'), keys: [ 'type' ]
+  edit: prepareForChange (require './pages/editPage'), keys: [ 'type', 'id' ]
   notFound: prepareForChange require './pages/notFoundPage'
-  crudProfessional: prepareForChange require './pages/crudProfessionalPage'
 
 # -- Link override to use router instead --
 click = (e) ->
