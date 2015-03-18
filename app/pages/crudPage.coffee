@@ -5,9 +5,9 @@ Components = require 'brahma-components'
 
 { div } = React.DOM
 
-Rcf = React.createFactory
-
-crudTable = Rcf Components.components.common.crud.table
+CrudTable = React.createFactory Components.components.common.crud.table
+CrudActions = Components.actions.admin.CrudActions
+EntityStores = Components.stores.EntityStores
 
 items = [
   {id: 1, email: 'dr.riviera@gmail.mx', name: 'Dr. Riviera'}
@@ -18,6 +18,22 @@ module.exports = React.createClass
 
   displayName: 'crud'
 
+  mixins: [ReactIntl]
+
+  getInitialState: ->
+    @updateState()
+
+  componentDidMount: ->
+    EntityStores.User.addChangeListener @updateState
+
+  componentWillUnmount: ->
+    EntityStores.User.removeChangeListener @updateState
+
+  updateState: (props) ->
+    # state = item: EntityStores.User.get(props.id)
+    # @setState state
+    # state
+
   render: ->
     div className: 'page-crud',
-      crudTable items: items, type: @props.type
+      CrudTable items: items, type: @props.type
