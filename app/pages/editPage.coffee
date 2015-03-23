@@ -3,36 +3,51 @@ ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
 Components = require 'brahma-components'
-Text = React.createFactory Components.components.common.form.text
 CrudActions = Components.actions.admin.CrudActions
 EntityStores = Components.stores.EntityStores
 
+ToggleEditForm = React.createFactory Components.components.common.toggleEditForm
+ToggleInput = React.createFactory Components.components.common.form.toggleInput
+ToggleSelect = React.createFactory Components.components.common.form.toggleSelect
+ToggleBoolean = React.createFactory Components.components.common.form.toggleBoolean
+ToggleTextarea =
+  React.createFactory Components.components.common.form.toggleTextarea
+
 { div, a, form } = React.DOM
 
-Rcf = React.createFactory
-
-# private method
+# Converts field values to properties
 fieldProps = (item, field) ->
   id: "#{item.id}-#{field}"
+  name: "#{field}"
   key: "#{item.id}-#{field}"
   label: "#{field}"
   placeholder: "#{field}"
-  value: item[field]
-  onChange: ->
 
+# Default input type for fields
 fieldDef =
   id:
-    noedit: true
     input: 'line'
-
+    props: ->
+      disabled: 'disabled'
   meta:
     input: 'text'
-
+  state:
+    input: 'select'
+    props: ->
+      options: [ 'UNCONFIRMED', 'CONFIRMED', 'DELEGATED', 'BANNED', 'DELETED' ]
+  gender:
+    input: 'select'
+    props: ->
+      options: [ 'MALE', 'FEMALE', 'OTHER' ]
+  confirmed:
+    input: 'boolean'
+  banned:
+    input: 'boolean'
+  locked:
+    input: 'boolean'
   default:
-    noedit: false
     input: 'line'
     props: -> {}
-
 
 module.exports = React.createClass
 
@@ -40,60 +55,80 @@ module.exports = React.createClass
 
   mixins: [ReactIntl]
 
+  propTypes:
+    id: React.PropTypes.string.isRequired
+
   getInitialState: ->
-    @updateState()
+    item: EntityStores.User.get @props.id
 
   componentDidMount: ->
     EntityStores.User.addChangeListener @updateState
+    CrudActions.read @props.id
 
   componentWillUnmount: ->
     EntityStores.User.removeChangeListener @updateState
 
-  updateState: (props) ->
-    props = props or @props
-    console.log 'id', props.id
-    state = item: EntityStores.User.get(props.id)
-    @setState state
-    state
+  componentWillReceiveProps: (next) ->
+    if @props.id isnt next.id
+      @setState item: EntityStores.User.get next.id
+
+  updateState: ->
+    console.log 'UPDATE OLD STATE', @state
+    @setState item: EntityStores.User.get @props.id
+    console.log 'UPDATE NEW STATE', @state
+
+  handleSave: (data) ->
+    newUser = _.extend {}, @state.item, data
+    CrudActions.update newUser
 
   render: ->
     item = @state.item
     if not item
-      return console.error 'Unkown item with Id: ', @props.id
+      return div {}
 
-    console.log 'State', @state
+    # Quick ToggleEditForm creator
+    tef = (title, childs...) =>
+      params =
+        title: title
+        defaults: item
+        submitCallback: @handleSave
+      childs.unshift params
+      ToggleEditForm.apply @, childs
+
     keys = Object.keys item
 
     div className: 'page-crud-edit',
-      form id: item.id,
+      tef item.id.toString(),
         keys.map (field, i) ->
-          def = _.defaults (fieldDef[field] or {}), fieldDef.default
+          # Defaults for this field
+          def   = _.defaults (fieldDef[field] or {}), fieldDef.default
+          # Defaults for properties
           props = _.defaults def.props(item, field), fieldProps(item, field)
 
           switch def.input
             when 'line'
-              Text props
+              ToggleInput props
             when 'text'
-              Text _.extend props, { multi: true }
+              ToggleTextarea props
+            when 'select'
+              ToggleSelect props
+            when 'boolean'
+              ToggleBoolean props
 
       div className: 'controls',
         a
+          className: 'button',
           href: '#',
           onClick: ->
-            console.log 'AAAAAAAAAAAAAAAAAA'
-            CrudActions.create _.omit(item, 'id')
-          ,
-          'clone'
-        a
-          href: '#',
-          onClick: ->
-            CrudActions.ban item.id
+            if window.confirm "Do you really want to ban #{item.name}"
+              CrudActions.ban item.id
           ,
           'ban'
         a
+          className: 'button',
           href: '#',
           onClick: ->
-            CrudActions.delete item.id
+            if window.confirm "Do you really want to delete #{item.name}"
+              CrudActions.delete item.id
           ,
           'delete'
-

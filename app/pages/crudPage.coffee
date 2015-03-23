@@ -1,4 +1,5 @@
 React = require 'react/addons'
+ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
 Components = require 'brahma-components'
@@ -8,11 +9,9 @@ Components = require 'brahma-components'
 CrudTable = React.createFactory Components.components.common.crud.table
 CrudActions = Components.actions.admin.CrudActions
 EntityStores = Components.stores.EntityStores
+ListStores = Components.stores.ListStores
 
-items = [
-  {id: 1, email: 'dr.riviera@gmail.mx', name: 'Dr. Riviera'}
-  {id: 2, email: 'dr.zivago@gmail.mx', name: 'Dr. Zivago'}
-]
+CrudActions.config 'user', 'users', 'professional'
 
 module.exports = React.createClass
 
@@ -24,16 +23,24 @@ module.exports = React.createClass
     @updateState()
 
   componentDidMount: ->
-    EntityStores.User.addChangeListener @updateState
+    ListStores.UsersByType.Professional.addChangeListener @updateState
+    items = ListStores.UsersByType.Professional.getObjects()
+    if not items or items.length is 0
+      CrudActions.refresh()
+    else
+      console.log 'No need for refresh', ListStores.UsersByType.Professional.getObjects()
 
   componentWillUnmount: ->
-    EntityStores.User.removeChangeListener @updateState
+    ListStores.UsersByType.Professional.removeChangeListener @updateState
 
   updateState: (props) ->
-    # state = item: EntityStores.User.get(props.id)
-    # @setState state
-    # state
+    state = items: ListStores.UsersByType.Professional.getObjects()
+    @setState state
+    state
 
   render: ->
     div className: 'page-crud',
-      CrudTable items: items, type: @props.type
+      CrudTable
+        items: @state.items[0],
+        header: ['id','login','email','name'],
+        type: @props.type
