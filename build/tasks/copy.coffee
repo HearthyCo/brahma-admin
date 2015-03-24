@@ -1,5 +1,4 @@
 module.exports = ->
-
   @loadNpmTasks "grunt-contrib-copy"
 
   @config "copy",
@@ -21,5 +20,14 @@ module.exports = ->
           cwd: "app/res/"
           src: "**/*"
           dest: "public/res/"
+        }
+      ]
+    components:
+      files: [
+        {
+          expand: true
+          cwd: "brahma_modules/brahma-components/dist/"
+          src: "**/*"
+          dest: "node_modules/brahma-components/dist/"
         }
       ]
