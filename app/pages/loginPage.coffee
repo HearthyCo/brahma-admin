@@ -16,4 +16,4 @@ module.exports = React.createClass
 
   render: ->
     div className: 'page-loginPage',
-      LoginForm {}
+      LoginForm showRegister: false

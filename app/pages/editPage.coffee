@@ -13,7 +13,7 @@ ToggleBoolean = React.createFactory Components.components.common.form.toggleBool
 ToggleTextarea =
   React.createFactory Components.components.common.form.toggleTextarea
 
-{ div, a, form } = React.DOM
+{ div, a, form, span } = React.DOM
 
 # Converts field values to properties
 fieldProps = (item, field) ->
@@ -51,7 +51,7 @@ fieldDef =
 
 module.exports = React.createClass
 
-  displayName: 'crud-edit'
+  displayName: 'crudEditPage'
 
   mixins: [ReactIntl]
 
@@ -116,19 +116,21 @@ module.exports = React.createClass
               ToggleBoolean props
 
       div className: 'controls',
-        a
+        div
           className: 'button',
           href: '#',
           onClick: ->
             if window.confirm "Do you really want to ban #{item.name}"
               CrudActions.ban item.id
           ,
-          'ban'
-        a
+          span className: 'icon icon-problem'
+          span {}, 'ban'
+        div
           className: 'button',
           href: '#',
           onClick: ->
             if window.confirm "Do you really want to delete #{item.name}"
               CrudActions.delete item.id
           ,
-          'delete'
+          span className: 'icon icon-cross'
+          span {}, 'delete'

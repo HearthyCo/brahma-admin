@@ -100,11 +100,11 @@ module.exports = React.createClass
 
     element = React.createElement elementFactory, @state.page.opts
 
-    classes = 'comp-page'
-    #if element.type.displayName
-    #  classes += ' ' + element.type.displayName
-    #if element.type.sectionName
-    #  classes += ' ' + element.type.sectionName
+    classes = 'comp-page admin'
+    if element.type.displayName
+      classes += ' ' + element.type.displayName
+    if element.type.sectionName
+      classes += ' ' + element.type.sectionName
 
     div className: classes,
       currentModal

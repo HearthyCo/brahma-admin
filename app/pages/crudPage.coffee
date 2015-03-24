@@ -15,7 +15,7 @@ CrudActions.config 'user', 'users', 'professional'
 
 module.exports = React.createClass
 
-  displayName: 'crud'
+  displayName: 'crudPage'
 
   mixins: [ReactIntl]
 
