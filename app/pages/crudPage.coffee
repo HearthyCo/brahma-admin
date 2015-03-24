@@ -7,11 +7,7 @@ Components = require 'brahma-components'
 { div } = React.DOM
 
 CrudTable = React.createFactory Components.components.common.crud.table
-CrudActions = Components.actions.admin.CrudActions
-EntityStores = Components.stores.EntityStores
-ListStores = Components.stores.ListStores
-
-CrudActions.config 'user', 'users', 'professional'
+FieldDefs = require '../config/fieldDef'
 
 module.exports = React.createClass
 
@@ -19,28 +15,34 @@ module.exports = React.createClass
 
   mixins: [ReactIntl]
 
+  propTypes:
+    type: FieldDefs.validator
+
   getInitialState: ->
     @updateState()
 
   componentDidMount: ->
-    ListStores.UsersByType.Professional.addChangeListener @updateState
-    items = ListStores.UsersByType.Professional.getObjects()
+    fieldDef = FieldDefs(@props.type).self
+    fieldDef.stores.entity.addChangeListener @updateState
+    items = fieldDef.stores.list.getObjects()
     if not items or items.length is 0
-      CrudActions.refresh()
-    else
-      console.log 'No need for refresh', ListStores.UsersByType.Professional.getObjects()
+      fieldDef.actions.refresh()
 
   componentWillUnmount: ->
-    ListStores.UsersByType.Professional.removeChangeListener @updateState
+    fieldDef = FieldDefs(@props.type).self
+    fieldDef.stores.entity.removeChangeListener @updateState
 
   updateState: (props) ->
-    state = items: ListStores.UsersByType.Professional.getObjects()
+    fieldDef = FieldDefs(@props.type).self
+    state = items: fieldDef.stores.list.getObjects()
     @setState state
     state
 
   render: ->
+    fieldDef = FieldDefs(@props.type).self
+
     div className: 'page-crud',
       CrudTable
         items: @state.items[0],
-        header: ['id','login','email','name'],
+        header: fieldDef.headers
         type: @props.type
