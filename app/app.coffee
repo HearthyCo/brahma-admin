@@ -41,12 +41,14 @@ Router = Backbone.Router.extend
     '': 'index'
     'login': 'login'
     'crud/:type': 'crud'
+    'crud/:type/new': 'create'
     'crud/:type/:id': 'edit'
     '*notFound': 'notFound'
 
   index: prepareForChange require './pages/homePage'
   login: prepareForChange require './pages/loginPage'
   crud: prepareForChange (require './pages/crudPage'), keys: [ 'type' ]
+  create: prepareForChange (require './pages/createPage'), keys: [ 'type' ]
   edit: prepareForChange (require './pages/editPage'), keys: [ 'type', 'id' ]
   notFound: prepareForChange require './pages/notFoundPage'
 

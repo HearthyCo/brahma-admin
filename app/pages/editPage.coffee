@@ -3,8 +3,7 @@ ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
 Components = require 'brahma-components'
-CrudActions = Components.actions.admin.CrudActions
-EntityStores = Components.stores.EntityStores
+FieldDefs = require '../config/fieldDef'
 
 ToggleEditForm = React.createFactory Components.components.common.toggleEditForm
 ToggleInput = React.createFactory Components.components.common.form.toggleInput
@@ -15,40 +14,6 @@ ToggleTextarea =
 
 { div, a, form } = React.DOM
 
-# Converts field values to properties
-fieldProps = (item, field) ->
-  id: "#{item.id}-#{field}"
-  name: "#{field}"
-  key: "#{item.id}-#{field}"
-  label: "#{field}"
-  placeholder: "#{field}"
-
-# Default input type for fields
-fieldDef =
-  id:
-    input: 'line'
-    props: ->
-      disabled: 'disabled'
-  meta:
-    input: 'text'
-  state:
-    input: 'select'
-    props: ->
-      options: [ 'UNCONFIRMED', 'CONFIRMED', 'DELEGATED', 'BANNED', 'DELETED' ]
-  gender:
-    input: 'select'
-    props: ->
-      options: [ 'MALE', 'FEMALE', 'OTHER' ]
-  confirmed:
-    input: 'boolean'
-  banned:
-    input: 'boolean'
-  locked:
-    input: 'boolean'
-  default:
-    input: 'line'
-    props: -> {}
-
 module.exports = React.createClass
 
   displayName: 'crud-edit'
@@ -57,31 +22,32 @@ module.exports = React.createClass
 
   propTypes:
     id: React.PropTypes.string.isRequired
+    type: FieldDefs.validator
 
   getInitialState: ->
-    item: EntityStores.User.get @props.id
+    item: FieldDefs(@props.type).self.stores.entity.get @props.id
 
   componentDidMount: ->
-    EntityStores.User.addChangeListener @updateState
-    CrudActions.read @props.id
+    fieldDef = FieldDefs(@props.type)
+    fieldDef.self.stores.entity.addChangeListener @updateState
+    fieldDef.self.actions.read @props.id
 
   componentWillUnmount: ->
-    EntityStores.User.removeChangeListener @updateState
+    FieldDefs(@props.type).self.stores.entity.removeChangeListener @updateState
 
   componentWillReceiveProps: (next) ->
     if @props.id isnt next.id
-      @setState item: EntityStores.User.get next.id
+      @setState item: FieldDefs(@props.type).self.stores.entity.get next.id
 
   updateState: ->
-    console.log 'UPDATE OLD STATE', @state
-    @setState item: EntityStores.User.get @props.id
-    console.log 'UPDATE NEW STATE', @state
+    @setState item: FieldDefs(@props.type).self.stores.entity.get @props.id
 
   handleSave: (data) ->
     newUser = _.extend {}, @state.item, data
-    CrudActions.update newUser
+    FieldDefs(@props.type).self.actions.update newUser
 
   render: ->
+    fieldDef = FieldDefs(@props.type)
     item = @state.item
     if not item
       return div {}
@@ -101,9 +67,9 @@ module.exports = React.createClass
       tef item.id.toString(),
         keys.map (field, i) ->
           # Defaults for this field
-          def   = _.defaults (fieldDef[field] or {}), fieldDef.default
+          def = fieldDef.getField field, item
           # Defaults for properties
-          props = _.defaults def.props(item, field), fieldProps(item, field)
+          props = def.props
 
           switch def.input
             when 'line'
@@ -121,7 +87,7 @@ module.exports = React.createClass
           href: '#',
           onClick: ->
             if window.confirm "Do you really want to ban #{item.name}"
-              CrudActions.ban item.id
+              fieldDef.self.actions.ban item.id
           ,
           'ban'
         a
@@ -129,6 +95,6 @@ module.exports = React.createClass
           href: '#',
           onClick: ->
             if window.confirm "Do you really want to delete #{item.name}"
-              CrudActions.delete item.id
+              fieldDef.self.actions.delete item.id
           ,
           'delete'
