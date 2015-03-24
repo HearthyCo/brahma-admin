@@ -12,6 +12,7 @@
     "backbone.nativeajax": "^0.3.2",
     "brahma-components": "./brahma_modules/brahma-components",
     "exoskeleton": "^0.7.0",
+    "filesaver.js": "^0.1.1",
     "moment": "^2.9.0",
     "react": ">=0.12.2",
     "react-intl": "^1.0.2",
