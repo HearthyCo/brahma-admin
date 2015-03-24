@@ -33,6 +33,7 @@
     "grunt-contrib-cssmin": "^0.12.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-env": "^0.4.2",
+    "grunt-run": "^0.3.0",
     "envify": "^3.3.0"
   },
   "browserify-shim": {

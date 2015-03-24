@@ -6,7 +6,7 @@ module.exports = ->
   @registerTask "html",  ["copy:html"]
   @registerTask "css",   ["compass"]
   @registerTask "js",    ["copy:components", "coffeelint", "browserify"]
-  @registerTask "dev",   ["development", "connect", "watch"]
+  @registerTask "dev",   ["development", "run", "watch"]
   @registerTask "build", ["html", "css", "js"]
 
   # ENVIRONMENTS
