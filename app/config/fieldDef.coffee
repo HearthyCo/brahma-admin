@@ -89,7 +89,7 @@ getMetadataForType = (type) ->
   meta.getField = (field, item) ->
     metas = [
       {}
-      meta?[field] or {}
+      meta?.fields[field] or {}
       fieldDefs.global?[field] or {}
       fieldDefs.default or {}
     ]
