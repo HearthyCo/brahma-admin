@@ -45,6 +45,7 @@ fieldDefs =
         initial: true
       password:
         initial: true
+        input: 'password'
       state:
         input: 'select'
         props: ->

@@ -7,6 +7,7 @@ FieldDefs = require '../config/fieldDef'
 
 ToggleEditForm = React.createFactory Components.components.common.toggleEditForm
 ToggleInput = React.createFactory Components.components.common.form.toggleInput
+TogglePassword = React.createFactory Components.components.common.form.togglePassword
 ToggleSelect = React.createFactory Components.components.common.form.toggleSelect
 ToggleBoolean = React.createFactory Components.components.common.form.toggleBoolean
 ToggleTextarea =
@@ -78,6 +79,8 @@ module.exports = React.createClass
               ToggleTextarea props
             when 'select'
               ToggleSelect props
+            when 'password'
+              TogglePassword props
             when 'boolean'
               ToggleBoolean props
 
