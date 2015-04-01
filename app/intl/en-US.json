@@ -42,6 +42,8 @@
   "enable-notifications": "Enable notifications",
   "enter-your-mail": "Enter your mail",
   "enter-your-pass": "Enter your password",
+  "error-on-userlogin-form": "Email and password are not valid.",
+  "error-on-userregister-form": "Sign up data is not valid.",
   "example": "Example",
   "february": "February",
   "female": "Female",
