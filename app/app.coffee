@@ -2,6 +2,10 @@ React = require 'react'
 ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
+console.log "React version: %s", React.version
+
+window.brahma = dispatcher: {}, stores: {}, actions: {}
+
 Backbone = require 'exoskeleton'
 Backbone.ajax = require 'backbone.nativeajax'
 
