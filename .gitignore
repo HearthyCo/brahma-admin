@@ -61,3 +61,4 @@ bower_components/
 Gemfile.lock
 
 ### SUBPROJECT SPECIFIC IGNORE
+app/locales/

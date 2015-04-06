@@ -31,7 +31,7 @@ Backbone.ajax = ->
 # --- /CORS ---
 
 Components.stores.IntlStore.messages =
-  'es-ES': require './intl/es-ES.json'
+  'es-ES': require './locales/es-ES.json'
 
 prepareForChange = (page, opts) -> (values...) ->
   # Yes, we can

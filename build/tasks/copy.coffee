@@ -8,13 +8,13 @@ module.exports = ->
           src: "app/index.html"
           dest: "public/index.html"
         },
-        # {
-        #   expand: true
-        #   src: "app/intl/*.json"
-        #   dest: "public/locales/"
-        #   flatten: true
-        #   filter: 'isFile'
-        # },
+        {
+          expand: true
+          src: "app/locales/*.json"
+          dest: "public/locales/"
+          flatten: true
+          filter: 'isFile'
+        },
         {
           expand: true
           cwd: "app/res/"
