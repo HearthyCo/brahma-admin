@@ -3,7 +3,7 @@ module.exports = ->
   @loadTasks "build/tasks"
 
   # COMMON
-  @registerTask "html",  ["copy:html"]
+  @registerTask "html",  ["merge-json", "copy:html"]
   @registerTask "css",   ["compass"]
   @registerTask "js",    ["copy:components", "coffeelint", "browserify"]
   @registerTask "dev",   ["development", "run", "watch"]

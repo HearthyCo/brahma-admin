@@ -43,6 +43,6 @@ module.exports = React.createClass
 
     div className: 'page-crud',
       CrudTable
-        items: @state.items[0],
+        items: @state.items,
         header: fieldDef.headers
         type: @props.type
