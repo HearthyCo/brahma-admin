@@ -20,6 +20,7 @@
     "underscore": "^1.7.0"
   },
   "devDependencies": {
+    "bundle-collapser": "^1.1.4",
     "coffeeify": "^1.0.0",
     "coffeelint": "^1.8.1",
     "envify": "^3.3.0",
@@ -33,10 +34,12 @@
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-csslint": "^0.4.0",
     "grunt-contrib-cssmin": "^0.12.2",
+    "grunt-contrib-uglify": "^0.9.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-env": "^0.4.2",
     "grunt-merge-json": "^0.9.5",
-    "grunt-run": "^0.3.0"
+    "grunt-run": "^0.3.0",
+    "uglifyify": "^3.0.1"
   },
   "browserify-shim": {
     "brahma-components": "global:Components",

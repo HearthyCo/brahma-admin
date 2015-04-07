@@ -10,5 +10,6 @@ module.exports = ->
           extensions: [".coffee"]
           fullPaths: false
           debug: true
-        transform: ["coffeeify", ["envify", { _: 'purge' }] ]
+        transform: ["coffeeify", ["envify", { _: 'purge' }], "uglifyify"]
+        plugin: ["bundle-collapser/plugin"]
         exclude: ["jquery"]

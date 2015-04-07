@@ -3,17 +3,21 @@ module.exports = ->
   @loadTasks "build/tasks"
 
   # COMMON
-  @registerTask "html",  ["merge-json", "copy:html"]
-  @registerTask "css",   ["compass"]
-  @registerTask "js",    ["copy:components", "coffeelint", "browserify"]
-  @registerTask "dev",   ["development", "run", "watch"]
-  @registerTask "build", ["html", "css", "js"]
+  @registerTask "html",    ["merge-json", "copy:html"]
+  @registerTask "css",     ["compass"]
+  @registerTask "js",      ["copy:components", "coffeelint", "browserify"]
+  @registerTask "compile", ["uglify:dist"]
+
+  @registerTask "build-dev", ["html", "css", "js"]
+  @registerTask "build",     ["html", "css", "cssmin", "js", "compile"]
 
   # ENVIRONMENTS
-  @registerTask "development",   ["build"]
-  @registerTask "preproduction", ["html", "css", "cssmin", "js"]
-  @registerTask "production",    ["html", "css", "cssmin", "js"]
+  @registerTask "development",   ["build-dev"]
+  @registerTask "preproduction", ["build"]
+  @registerTask "production",    ["build"]
 
   # DEFAULT
-  @registerTask "default", ["development"]
-  @registerTask "heroku", ["production"]
+  @registerTask "default",  ["development"]
+  @registerTask "dev",      ["development", "run", "watch"]
+  @registerTask "mobile",   ["env:mobile", "development"]
+  @registerTask "heroku",   ["production"]
