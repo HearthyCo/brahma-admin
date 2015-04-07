@@ -75,7 +75,7 @@ fieldDefs =
 
 # Props defaults that will get overwritten by the props function of the field
 baseProps = (type, field, item) ->
-  item = item || {}
+  item = item or {}
   id: "#{item.id}-#{field}"
   name: "#{field}"
   key: "#{item.id}-#{field}"
