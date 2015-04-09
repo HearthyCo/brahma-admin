@@ -9,7 +9,14 @@ module.exports = ->
   @registerTask "compile", ["uglify:dist", "copy:jsdist", "clean:jsdist"]
 
   @registerTask "build-dev", ["clean:public", "html", "css", "js"]
-  @registerTask "build",     ["clean:public", "html", "css", "cssmin", "js", "compile"]
+  @registerTask "build",     [
+    "clean:public"
+    "html"
+    "css"
+    "cssmin"
+    "js"
+    "compile"
+  ]
 
   # ENVIRONMENTS
   @registerTask "development",   ["env:development", "build-dev"]
