@@ -1,5 +1,4 @@
 React = require 'react'
-ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
 console.log "React version: %s", React.version
@@ -10,6 +9,7 @@ Backbone = require 'exoskeleton'
 Backbone.ajax = require 'backbone.nativeajax'
 
 Components = require 'brahma-components'
+ReactIntl = Components.mixins.ReactIntl
 AppDispatcher = Components.dispatcher.AppDispatcher
 PageActions = Components.actions.PageActions
 ModalActions = Components.actions.ModalActions

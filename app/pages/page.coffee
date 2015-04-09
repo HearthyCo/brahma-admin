@@ -1,15 +1,14 @@
 React = require 'react/addons'
-ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
 Components = require 'brahma-components'
 
+ReactIntl = Components.mixins.ReactIntl
 ListStores = Components.stores.ListStores
 EntityStores = Components.stores.EntityStores
 IntlStore = Components.stores.IntlStore
 PageStore = Components.stores.PageStore
 ModalStore = Components.stores.ModalStore
-
 
 UserActions = Components.actions.UserActions
 PageActions = Components.actions.PageActions

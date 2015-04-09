@@ -1,8 +1,9 @@
 React = require 'react/addons'
-ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
 Components = require 'brahma-components'
+
+ReactIntl = Components.mixins.ReactIntl
 
 { div } = React.DOM
 

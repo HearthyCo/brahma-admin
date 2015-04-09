@@ -1,9 +1,10 @@
 React = require 'react/addons'
-ReactIntl = require 'react-intl'
 _ = require 'underscore'
 
 Components = require 'brahma-components'
 FieldDefs = require '../config/fieldDef'
+
+ReactIntl = Components.mixins.ReactIntl
 
 ToggleEditForm = React.createFactory Components.components.common.toggleEditForm
 ToggleInput = React.createFactory Components.components.common.form.toggleInput
