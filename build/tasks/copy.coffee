@@ -31,3 +31,6 @@ module.exports = ->
           dest: "node_modules/brahma-components/dist/"
         }
       ]
+    jsdist:
+      src: "public/main.dist.js"
+      dest: "public/main.js"
