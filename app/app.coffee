@@ -3,7 +3,7 @@ _ = require 'underscore'
 
 console.log "React version: %s", React.version
 
-window.brahma = dispatcher: {}, stores: {}, actions: {}
+window.brahma = dispatcher: {}, stores: {}, actions: {}, modal: null, router: {}
 
 Backbone = require 'exoskeleton'
 Backbone.ajax = require 'backbone.nativeajax'
@@ -71,7 +71,7 @@ document.addEventListener 'click', click, false
 
 # -- Start it up! --
 React.render React.createElement((require './pages/page'), {}), document.body
-window.router = new Router()
+window.brahma.router = new Router()
 Backbone.history.start pushState: true # Change to True when on real server
 
 Components.actions.UserActions.getMe()
