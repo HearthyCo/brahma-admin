@@ -64,7 +64,7 @@ click = (e) ->
   if target and target.tagName is 'A'
     if not target.target and target.host is window.location.host
       e.preventDefault()
-      if not target.rel is 'disabled'
+      if target.rel isnt 'disabled'
         PageActions.navigate target.pathname
 
 document.addEventListener 'click', click, false
