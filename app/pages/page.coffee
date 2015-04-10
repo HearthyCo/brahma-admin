@@ -124,6 +124,6 @@ module.exports = React.createClass
       currentModal
 
       div id: 'container',
-        Menu {}
+        menu {}
         div id: 'main',
           element
