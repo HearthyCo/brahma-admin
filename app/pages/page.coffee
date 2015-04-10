@@ -9,14 +9,21 @@ EntityStores = Components.stores.EntityStores
 IntlStore = Components.stores.IntlStore
 PageStore = Components.stores.PageStore
 ModalStore = Components.stores.ModalStore
+AlertStore   = Components.stores.AlertStore
 
 UserActions = Components.actions.UserActions
 PageActions = Components.actions.PageActions
 ModalActions = Components.actions.ModalActions
 loginPage = require './loginPage'
 
+# Shorter lines trick
+Rcf    = React.createFactory
+Common = Components.components.common
+
+menu  = Rcf Common.professionalMenu
+alert = Rcf Common.alert
+
 { section, div } = React.DOM
-Menu = React.createFactory Components.components.common.adminMenu
 
 module.exports = React.createClass
 
@@ -49,14 +56,16 @@ module.exports = React.createClass
     @updateUser()
     EntityStores.User.addChangeListener @updateUser
     IntlStore.addChangeListener @updateLocale
-    PageStore.addChangeListener @updatePage
     ModalStore.addChangeListener @updateModal
+    AlertStore.addChangeListener @updateAlert
+    PageStore.addChangeListener @updatePage
 
   componentWillUnmount: ->
     EntityStores.User.removeChangeListener @updateUser
     IntlStore.removeChangeListener @updateLocale
-    PageStore.removeChangeListener @updatePage
     ModalStore.removeChangeListener @updateModal
+    AlertStore.removeChangeListener @updateAlert
+    PageStore.removeChangeListener @updatePage
 
   updateLocale: ->
     @setState
@@ -77,6 +86,9 @@ module.exports = React.createClass
 
   updateModal: ->
     @setState modal: ModalStore.getModal()
+
+  updateAlert: ->
+    @setState alerts: AlertStore.getAlerts()
 
   updatePage: ->
     @setState page: PageStore.getPage()
@@ -106,7 +118,11 @@ module.exports = React.createClass
       classes += ' ' + element.type.sectionName
 
     div className: classes,
+      # alerts box
+      alert @state.alerts
+      # modal, if needed
       currentModal
+
       div id: 'container',
         Menu {}
         div id: 'main',
