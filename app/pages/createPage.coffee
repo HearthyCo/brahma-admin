@@ -10,6 +10,7 @@ ToggleEditForm = React.createFactory Components.components.common.toggleEditForm
 ToggleInput = React.createFactory Components.components.common.form.toggleInput
 ToggleSelect = React.createFactory Components.components.common.form.toggleSelect
 ToggleBoolean = React.createFactory Components.components.common.form.toggleBoolean
+TogglePassword = React.createFactory Components.components.common.form.togglePassword
 ToggleTextarea =
   React.createFactory Components.components.common.form.toggleTextarea
 
@@ -59,3 +60,5 @@ module.exports = React.createClass
               ToggleSelect props
             when 'boolean'
               ToggleBoolean props
+            when 'password'
+              TogglePassword props
