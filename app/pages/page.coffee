@@ -20,7 +20,7 @@ loginPage = require './loginPage'
 Rcf    = React.createFactory
 Common = Components.components.common
 
-menu  = Rcf Common.professionalMenu
+menu  = Rcf Common.adminMenu
 alert = Rcf Common.alert
 
 { section, div } = React.DOM
