@@ -14,7 +14,7 @@
     "exoskeleton": "^0.7.0",
     "filesaver.js": "^0.1.1",
     "moment": "^2.9.0",
-    "react": ">=0.12.2",
+    "react": "^0.13.1",
     "react-intl": "^1.0.2",
     "send": "^0.12.1",
     "underscore": "^1.7.0"
