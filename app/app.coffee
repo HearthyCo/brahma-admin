@@ -1,18 +1,24 @@
+IntlPolyfill = require 'intl'
+Intl.NumberFormat = IntlPolyfill.NumberFormat
+
+# Global
+window.brahma =
+  dispatcher: {}
+  stores: {}
+  actions: {}
+  modal: null
+  router: {}
+
+# Stack
 React = require 'react'
+Backbone = require 'exoskeleton'
 _ = require 'underscore'
+Components = require 'brahma-components'
 
 console.log "React version: %s", React.version
 
-window.brahma = dispatcher: {}, stores: {}, actions: {}, modal: null, router: {}
-
-Backbone = require 'exoskeleton'
-Backbone.ajax = require 'backbone.nativeajax'
-
-Components = require 'brahma-components'
-ReactIntl = Components.mixins.ReactIntl
-AppDispatcher = Components.dispatcher.AppDispatcher
-PageActions = Components.actions.PageActions
-ModalActions = Components.actions.ModalActions
+# Ajax for Backbone, with CORS powerpack
+Backbone.ajax = Components.util.nativeAjax
 
 # To remove global window vars and avoid "not found require module" error, I
 # created ../util/Config.coffee in components (Components.util.config) that
@@ -20,18 +26,15 @@ ModalActions = Components.actions.ModalActions
 Config = require './config/config'
 _.extend Components.util.config, Config
 
-# --- CORS OVERRIDE ---
-nativeajax = Backbone.ajax
-Backbone.ajax = ->
-  beforeSend = (xhr) ->
-    xhr.withCredentials = true
-  arguments[0] = _.extend arguments[0], beforeSend: beforeSend
-  nativeajax.apply nativeajax, arguments
-
-# --- /CORS ---
-
+# Internationalisation
 Components.stores.IntlStore.messages =
   'es-ES': require './locales/es-ES.json'
+
+# Components
+ReactIntl = Components.mixins.ReactIntl
+AppDispatcher = Components.dispatcher.AppDispatcher
+PageActions = Components.actions.PageActions
+ModalActions = Components.actions.ModalActions
 
 prepareForChange = (page, opts) -> (values...) ->
   # Yes, we can
