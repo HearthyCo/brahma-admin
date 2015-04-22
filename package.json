@@ -23,7 +23,6 @@
   "devDependencies": {
     "bundle-collapser": "^1.1.4",
     "coffeeify": "^1.0.0",
-    "coffeelint": "^1.8.1",
     "coffeelint-undefined-variables": "0.0.2",
     "coffeelint-variable-scope": "0.0.3",
     "envify": "^3.3.0",
