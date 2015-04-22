@@ -49,7 +49,8 @@ fieldDefs =
       state:
         input: 'select'
         props: ->
-          options: [ 'UNCONFIRMED', 'CONFIRMED', 'DELEGATED', 'BANNED', 'DELETED' ]
+          options: [ 'UNCONFIRMED', 'CONFIRMED', 'DELEGATED',
+            'BANNED', 'DELETED' ]
       gender:
         input: 'select'
         props: ->
@@ -106,7 +107,7 @@ getMetadataForType = (type) ->
   meta
 
 # Validate that the specified react prop exists and is valid
-getMetadataForType.validator = (props, propName, componentName) ->
+getMetadataForType.validator = (props, propName) ->
   type = props[propName]
   return new Error 'Missing entity type' if not type
   return new Error 'Unknown entity: ' + type if not fieldDefs[type]

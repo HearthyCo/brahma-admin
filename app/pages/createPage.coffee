@@ -6,13 +6,15 @@ FieldDefs = require '../config/fieldDef'
 
 ReactIntl = Components.mixins.ReactIntl
 
-ToggleEditForm = React.createFactory Components.components.common.toggleEditForm
-ToggleInput = React.createFactory Components.components.common.form.toggleInput
-ToggleSelect = React.createFactory Components.components.common.form.toggleSelect
-ToggleBoolean = React.createFactory Components.components.common.form.toggleBoolean
-TogglePassword = React.createFactory Components.components.common.form.togglePassword
-ToggleTextarea =
-  React.createFactory Components.components.common.form.toggleTextarea
+Rcf = React.createFactory
+Common = Components.components.common
+
+ToggleEditForm = Rcf Common.toggleEditForm
+ToggleInput = Rcf Common.form.toggleInput
+ToggleSelect = Rcf Common.form.toggleSelect
+ToggleBoolean = Rcf Common.form.toggleBoolean
+TogglePassword = Rcf Common.form.togglePassword
+ToggleTextarea = Rcf Common.form.toggleTextarea
 
 { div, a, form } = React.DOM
 
@@ -45,7 +47,7 @@ module.exports = React.createClass
 
     div className: 'page-crud-edit',
       tef @props.type,
-        keys.map (field, i) ->
+        keys.map (field) ->
           # Defaults for this field
           def = fieldDef.getField field
           # Defaults for properties

@@ -1,5 +1,5 @@
 IntlPolyfill = require 'intl'
-Intl.NumberFormat = IntlPolyfill.NumberFormat
+window.Intl.NumberFormat = IntlPolyfill.NumberFormat
 
 # Global
 window.brahma =
@@ -70,10 +70,11 @@ click = (e) ->
       if target.rel isnt 'disabled'
         PageActions.navigate target.pathname
 
-document.addEventListener 'click', click, false
+window.document.addEventListener 'click', click, false
 
 # -- Start it up! --
-React.render React.createElement((require './pages/page'), {}), document.body
+React.render React.createElement((require './pages/page'), {}),
+  window.document.body
 window.brahma.router = new Router()
 Backbone.history.start pushState: true # Change to True when on real server
 

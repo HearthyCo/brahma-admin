@@ -105,7 +105,7 @@ module.exports = React.createClass
     # Should we show a modal on top?
     currentModal = false
     if @state.modal and @state.modal.visible
-      currentModal = modal
+      currentModal = @state.modal
         content: @state.modal.content
         onClose: ModalActions.hide
 
