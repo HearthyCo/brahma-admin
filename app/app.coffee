@@ -77,6 +77,12 @@ window.document.addEventListener 'click', click, false
 React.render React.createElement((require './pages/page'), {}),
   window.document.body
 window.brahma.router = new Router()
-Backbone.history.start pushState: true # Change to True when on real server
 
+# Wait for getme results before showing anything.
+handler = ->
+  Backbone.history.start pushState: true
+  # Send load complete event.
+  # AppDispatcher.trigger 'page:Loaded:success', {}
 Components.actions.UserActions.getMe()
+.then handler
+.catch handler
