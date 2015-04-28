@@ -8,6 +8,7 @@ window.brahma =
   actions: {}
   modal: null
   router: {}
+  utils: {}
 
 # Stack
 React = require 'react'
