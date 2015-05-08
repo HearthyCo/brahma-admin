@@ -1,4 +1,4 @@
-IntlPolyfill = require 'intl'
+IntlPolyfill = require './libs/intlPolyfill'
 window.Intl.NumberFormat = IntlPolyfill.NumberFormat
 
 # Global
