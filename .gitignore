@@ -62,3 +62,5 @@ Gemfile.lock
 
 ### SUBPROJECT SPECIFIC IGNORE
 app/locales/
+public-ios/
+public-android/
